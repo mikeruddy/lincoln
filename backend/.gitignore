@@ -1,3 +1,4 @@
+app.sqlite
 node_modules
 *.log
 dist

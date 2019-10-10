@@ -8,7 +8,9 @@ import { Server } from "./config/Server";
 
 dotenv.config({ path: resolve() + "/.env" });
 
-if (cluster.isMaster) {
+
+console.log(`Cluster is ${cluster.isMaster}`)
+if (false) {
     console.log(`\n -------------------> RUN ${env.NODE_ENV} ENVIRONMENT \n`);
     for (const _ of cpus()) {
         cluster.fork();

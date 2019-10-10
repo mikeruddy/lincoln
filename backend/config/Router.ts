@@ -18,9 +18,7 @@ export const ROUTER: IROUTER[] = [{
     path: "/JWT",
 }, {
     handler: Sample.router,
-    middleware: [
-        jwt({ secret: config.SECRET }),
-    ],
+    middleware: [],
     path: "/donate",
 }, {
     handler: Sample.router,

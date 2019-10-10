@@ -16,12 +16,18 @@ export class Donate extends BaseEntity {
     @IsEmail()
     public email: string;
 
-    @Column("boolean")
-    public gender: boolean;
+    @Column("int")
+    public gender: number;
 
     @Column("varchar")
     public address: string;
 
     @Column("int")
     public amount: number;
+
+    @Column("int")
+    public donation_month: number;
+
+    @Column("int")
+    public donation_year: number;
 }
