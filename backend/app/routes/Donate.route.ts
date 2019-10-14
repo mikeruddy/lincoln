@@ -7,10 +7,8 @@ export class DonateRouter extends Router {
     constructor() {
         super(DonateController);
         this.router
-            .get("/", this.handler(DonateController.prototype.all))
-            .get("/:id", this.handler(DonateController.prototype.find))
-            .post("/", [ Validator(createSample) ], this.handler(DonateController.prototype.create))
-            .put("/", [ Validator(updateSample) ],  this.handler(DonateController.prototype.update))
-            .delete("/", [ Validator(deleteSample) ], this.handler(DonateController.prototype.delete));
+            .get("/:month", this.handler(DonateController.prototype.all))
+            .get("/stats/:year", this.handler(DonateController.prototype.stats))
+            .post("/:date", [], this.handler(DonateController.prototype.create));
     }
 }

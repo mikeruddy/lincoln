@@ -3,11 +3,6 @@ import { Donate } from "../models";
 import { DonateRepository } from "../repository";
 
 export class DonateService {
-
-    public findByText(text: string): Promise<Donate[]> {
-        return getCustomRepository(DonateRepository).findByText(text);
-    }
-
     public bulkCreate(Donations: Donate[]): Promise<Donate[]> {
         return getCustomRepository(DonateRepository).bulkCreate(Donations);
     }
@@ -16,8 +11,29 @@ export class DonateService {
         return getCustomRepository(DonateRepository).findOneById(id);
     }
 
-    public find(): Promise<Donate[]> {
-        return getCustomRepository(DonateRepository).find();
+    public find(date: string): Promise<Donate[]> {
+        return getCustomRepository(DonateRepository).findByDate(date);
+    }
+
+    public stats(dateParam: string): Promise<Donate[]> {
+        return new Promise(function(resolve, reject) {
+            let statsPromise = getCustomRepository(DonateRepository).getStats(dateParam);
+            statsPromise.then(records => {
+                console.log('SKRR', records);
+                let results = [];
+
+                records.forEach(result => {
+                    // let month = records[0]['date'].split('-')[1];
+                    console.log('result')
+                });
+
+
+
+
+            });
+            
+        });
+        
     }
 
     public remove(Donation: Donate): Promise<Donate> {

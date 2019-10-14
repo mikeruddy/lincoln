@@ -7,6 +7,14 @@ import * as morgan from "morgan";
 import { Connection } from "./Database";
 import { ROUTER } from "./Router";
 
+let rawBodySaver = function (req: any, res: any, buf: any, encoding: any) {
+    
+    if (buf && buf.length) {
+        console.log('PARSER CHECK', typeof buf)
+      req.body = buf.toString(encoding || 'utf8');
+    }
+  }
+
 export class Server {
 
     private static connectDB(): Promise<any> {
@@ -33,8 +41,10 @@ export class Server {
     }
 
     private expressConfiguration(): void {
-        this.app.use(bodyParser.urlencoded({ extended: true }));
-        this.app.use(bodyParser.json({ limit: "50mb" }));
+        this.app.use(bodyParser.urlencoded({ extended: true, verify: rawBodySaver }));
+        this.app.use(bodyParser.json({ limit: "50mb", verify: rawBodySaver }));
+        this.app.use(bodyParser.raw({ verify: rawBodySaver, type: function () { return true } }));
+
         this.app.use(methodOverride());
         this.app.use((req, res, next): void => {
             res.header("Access-Control-Allow-Origin", "*");

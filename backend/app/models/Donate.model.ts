@@ -9,25 +9,34 @@ export class Donate extends BaseEntity {
     @Column("int")
     public donor_id: number;
 
-    @Column("varchar")
-    public name: string;
+    @Column({
+        type: "varchar",
+        nullable: true
+    })
+    public name: string | null;
 
-    @Column("varchar")
+    @Column({
+        type: "varchar",
+        nullable: true
+    })
     @IsEmail()
-    public email: string;
+    public email: string | null;
 
-    @Column("int")
-    public gender: number;
+    @Column({
+        type: "int",
+        nullable: true
+    })
+    public gender: number | null;
 
-    @Column("varchar")
-    public address: string;
+    @Column({
+        type: "varchar",
+        nullable: true
+    })
+    public address: string | null;
 
     @Column("int")
     public amount: number;
 
-    @Column("int")
-    public donation_month: number;
-
-    @Column("int")
-    public donation_year: number;
+    @Column("date")
+    public date: Date;
 }
