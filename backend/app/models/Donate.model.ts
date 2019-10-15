@@ -38,5 +38,5 @@ export class Donate extends BaseEntity {
     public amount: number;
 
     @Column("date")
-    public date: Date;
+    public date: Date | string;
 }

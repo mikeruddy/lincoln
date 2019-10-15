@@ -47,7 +47,7 @@ export class DonateController extends Controller {
                     gender: item.donor_gender,
                     address: item.donor_address,
                     amount: item.donation_amount,
-                    date: `${timestamp.getUTCFullYear()}-${timestamp.getUTCMonth()}-0`
+                    date: `${timestamp.getUTCFullYear()}-${timestamp.getUTCMonth() + 1}-0`
                 };
             });
             

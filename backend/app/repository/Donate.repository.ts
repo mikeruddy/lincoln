@@ -11,7 +11,7 @@ export class DonateRepository extends Repository<Donate> {
     public getStats(dateString: string): Promise<Donate[]> {
         return getConnection()
             .createQueryBuilder()
-            .select("COALESCE(NULLIF(gender,''), 'Anon') as gender, round(sum(amount), 2) as amount, strftime('%m', date)")
+            .select("COALESCE(NULLIF(gender,''), 'Anon') as gender, round(sum(amount), 2) as amount, date")
             .from(Donate, "donate")
             .where("date >= :start and date < :end", { start: `${dateString}-0-0`, end: `${Number(dateString) + 1}-0-0` })
             .groupBy("gender, date")

@@ -19,17 +19,27 @@ export class DonateService {
         return new Promise(function(resolve, reject) {
             let statsPromise = getCustomRepository(DonateRepository).getStats(dateParam);
             statsPromise.then(records => {
-                console.log('SKRR', records);
-                let results = [];
+                let results: any[] = new Array();
 
-                records.forEach(result => {
-                    // let month = records[0]['date'].split('-')[1];
-                    console.log('result')
+                for(let i = 0; i < 12; i++) {
+                    results[i] = {
+                        "Anon": 0,
+                        "Female": 0,
+                        "Male": 0
+                    }
+                }
+
+                records.forEach((result, i) => {
+                    let month = result.date as string;
+                    let mo = Number(month.split('-')[1]) - 1;
+                    if(!results[mo]) {
+                        results[mo] = {};
+                    }
+
+                    results[mo][result.gender] = result.amount;
                 });
 
-
-
-
+                resolve(results);
             });
             
         });
