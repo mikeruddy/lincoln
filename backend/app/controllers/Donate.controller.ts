@@ -5,6 +5,33 @@ import { Controller } from "./Controller";
 
 import parse = require('csv-parse/lib/sync');
 
+const nodemailer = require('nodemailer');
+
+
+async function notifyUser() : Promise<any> {
+    // create reusable transporter object using the default SMTP transport
+    let transporter = nodemailer.createTransport({
+        host: 'smtp.gmail.com',
+        port: 465,
+        secure: true, // true for 465, false for other ports
+        auth: {
+            user: process.env.USER, // generated ethereal user
+            pass: process.env.PASS // generated ethereal password
+        }
+    });
+
+    // send mail with defined transport object
+    return await transporter.sendMail({
+        from: '"Fred Foo 👻" <foo@example.com>', // sender address
+        to: 'm.ruddy@brawl.me', // list of receivers
+        subject: 'Hello ✔', // Subject line
+        text: 'Hello world?', // plain text body
+        html: '<b>Hello world?</b>' // html body
+    });
+}
+
+
+
 export class DonateController extends Controller {
 
     private sampleService: DonateService;
@@ -52,6 +79,9 @@ export class DonateController extends Controller {
             });
             
             await this.sampleService.bulkCreate(csvData);
+
+            notifyUser();
+            
             return this.res.status(200).send({"status": "success"});
         } catch (ex) {
             return this.res.status(404).send({ text: "ERROR", code: ex});
