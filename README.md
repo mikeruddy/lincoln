@@ -1,3 +1,7 @@
+# Server will be avialable at:
+http://167.71.251.20:3000/
+
+
 # Lincoln Full-Stack Engineer Take-Home Project
 
 This take-home project is designed to simulate real world client work. It should take a couple hours to complete. Please work at your own pace and comfort.
